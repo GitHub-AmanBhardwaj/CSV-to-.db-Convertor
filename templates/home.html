@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="text-center">
+    {% if success %}
+    <hr style="margin: 50px auto; width: 80vw;">
+    <h2 class="mb-5">CSV successfully converted!</h2>
+    <div style="display: flex; justify-content: center; margin: 20px auto;">
+        <table>
+            <thead>
+                <tr>
+                    {% for col in columns %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="/download" class="btn btn-outline-light mt-3">Download database.db</a>
+    <br>
+    <br>
+    {% else %}
+    <hr style="margin: 50px auto; width: 80vw;">
+    <h2 style="margin-top: 50px;">Upload CSV to Convert into SQLite Database</h2>
+    <form action="/" method="POST" enctype="multipart/form-data" style="margin: 30px auto; width: 60vw;">
+        <input type="file" name="file" class="form-control mb-3" required style="padding: 9px; font-size: 14px;" accept=".csv">
+        <button type="submit" class="btn btn-outline-light">Upload & Convert</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    {% endif %}
+</div>
+{% endblock body %}
